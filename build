@@ -1,0 +1,21 @@
+#!/bin/bash -e
+
+root=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+gpp_flags=(
+    -std=c++1z
+    -O3
+    -Wall
+    -Wextra
+    # -Werror
+)
+
+main() {
+    cd "$root"
+
+    docker run --rm -v "$PWD":/app gcc:7 bash -c "
+        cd /app
+        g++ ${gpp_flags[*]} -o coaie coaie.cpp
+    "
+}
+
+main "$@"

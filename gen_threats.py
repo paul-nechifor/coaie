@@ -16,6 +16,11 @@ def trans(ns, mask):
 threats = [
     ('xxxx.', '....m'),
     ('.xxxx', 'm....'),
+
+    ('.ooo.', 'm...m'),
+    ('.oooox', 'm.....'),
+    ('xoooo.', '.....m'),
+
     ('.xxx.', 'm...m'),
     ('.xx.', 'm..m'),
     ('.x.', 'm.m'),

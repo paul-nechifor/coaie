@@ -1,6 +1,6 @@
-int n_threats = 9;
+int n_threats = 10;
 
-threat_t possible_threats[3][9] = {
+threat_t possible_threats[3][10] = {
     {
         {
             {-1, -1, -1, -1, 0},
@@ -10,6 +10,11 @@ threat_t possible_threats[3][9] = {
         {
             {0, -1, -1, -1, -1},
             {true, false, false, false, false},
+            5,
+        },
+        {
+            {0, 1, 1, 1, 0},
+            {true, false, false, false, true},
             5,
         },
         {
@@ -58,6 +63,7 @@ threat_t possible_threats[3][9] = {
         {},
         {},
         {},
+        {},
     },
     {
         {
@@ -68,6 +74,11 @@ threat_t possible_threats[3][9] = {
         {
             {0, 1, 1, 1, 1},
             {true, false, false, false, false},
+            5,
+        },
+        {
+            {0, -1, -1, -1, 0},
+            {true, false, false, false, true},
             5,
         },
         {

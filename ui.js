@@ -11,12 +11,12 @@ function createWindow() {
   mainWindow.setMenu(null);
 
   mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
+    pathname: path.join(__dirname, 'ui.html'),
     protocol: 'file:',
     slashes: true
   }));
 
-  mainWindow.toggleDevTools();
+  // mainWindow.toggleDevTools();
 
   mainWindow.on('closed', function () {
     mainWindow = null;

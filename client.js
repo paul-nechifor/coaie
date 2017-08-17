@@ -42,7 +42,7 @@ $svg.click(ev => {
 
   const aiPlayer = -playerColor;
   const str = board.map(x => code[x]).join('');
-  const exe = path.resolve(__dirname, '..', 'coaie');
+  const exe = path.resolve(__dirname, 'coaie');
   const cmd = `${exe} play ${str} ${code[playerColor]}`;
   exec(cmd, {encoding: 'utf8'}, (err, out) => {
     const list = out.trim().split(' ');

@@ -1,7 +1,7 @@
 {
   "name": "ui",
   "version": "1.0.0",
-  "main": "main.js",
+  "main": "ui.js",
   "scripts": {
     "start": "electron ."
   },

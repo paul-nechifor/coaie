@@ -13,9 +13,14 @@ gpp_flags=(
 main() {
     cd "$root"
 
+    ./threats.py > threats.h
     docker run --rm -v "$PWD":/app gcc:7 bash -c "
         cd /app
         g++ ${gpp_flags[*]} -o coaie coaie.cpp
+        groupadd -g $(id -g) group
+        useradd -g group -u $(id -u) user
+        chown user:group coaie
+
     "
 }
 

@@ -75,12 +75,19 @@ const $svg = $('#svg');
 const $pieces = $('#pieces');
 const cellSize = parseInt(svg.getAttribute('width'), 10) / 15;
 const board = _.range(15 * 15).map(x => 0);
+const numbers = _.range(15 * 15).map(x => 0);
 const code = {'-1': 'o', '0': '.', '1': 'x'};
+const labels = {
+  '1': $svg.find('#black-labels').empty(),
+  '-1': $svg.find('#white-labels').empty(),
+};
 
 let playerColor = 1;
+let lastPiece = 1;
 
 function renderBoard() {
   $pieces.empty();
+  _.invoke(labels, 'empty');
 
   for (let i = 0; i < 15; i++) {
     for (let j = 0; j < 15; j++) {
@@ -100,12 +107,23 @@ function addPiece(i, j, player) {
   el.setAttribute('transform', 'translate(' + x + ', ' + y + ')');
   el.setAttributeNS('http://www.w3.org/1999/xlink', 'href', color);
   $pieces.append(el);
+
+  const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  text.setAttribute('x', x);
+  text.setAttribute('y', y + 6);
+  text.appendChild(document.createTextNode('' + numbers[i * 15 + j]));
+  labels[player].append(text);
 }
 
 $svg.click(ev => {
   const i = Math.floor(ev.offsetY / cellSize);
   const j = Math.floor(ev.offsetX / cellSize);
-  board[i * 15 + j] = playerColor;
+  const move = i * 15 + j;
+  if (board[move]) {
+    return;
+  }
+  board[move] = playerColor;
+  numbers[move] = lastPiece++;
   renderBoard();
 
   const aiPlayer = -playerColor;
@@ -116,6 +134,7 @@ $svg.click(ev => {
     const list = out.trim().split(' ');
     const move = parseInt(list[Math.floor(Math.random() * list.length)], 10);
     board[move] = -playerColor;
+    numbers[move] = lastPiece++;
     renderBoard();
   });
 });

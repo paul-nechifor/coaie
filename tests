@@ -48,7 +48,7 @@ class TestsTestCase(TestCase):
             . . . . . . . . . . . . . . .
         """)
 
-    def test_001_002(self):
+    def test_001_003(self):
         self.assert_move([0, 4], """
             . x x x . . . . . . . . . . .
             . . . . . . . . . . . . . . .
@@ -67,7 +67,7 @@ class TestsTestCase(TestCase):
             . . . . . . . . . . . . . . .
         """)
 
-    def test_001_003(self):
+    def test_001_004(self):
         self.assert_move([0, 4], """
             . o o o . . . . . . . . . . .
             . . . . . . . . . . . . . . .
@@ -86,7 +86,7 @@ class TestsTestCase(TestCase):
             . . . . . . . . . . . . . . .
         """, 'o')
 
-    def test_001_004(self):
+    def test_001_005(self):
         self.assert_move([10], """
             . . . . . . . . . . . x x x x
             . . . . . . . . . . . . . . .
@@ -105,7 +105,7 @@ class TestsTestCase(TestCase):
             . . . . . . . . . . . . . . .
         """)
 
-    def test_001_005(self):
+    def test_001_006(self):
         self.assert_move([10], """
             . . . . . . . . . . . o o o o
             . . . . . . . . . . . . . . .
@@ -124,7 +124,7 @@ class TestsTestCase(TestCase):
             . . . . . . . . . . . . . . .
         """, 'o')
 
-    def test_001_006(self):
+    def test_001_007(self):
         self.assert_move([0], """
             . o o o o x . . . . . . . . .
             . . . . . . . . . . . . . . .
@@ -200,7 +200,7 @@ class TestsTestCase(TestCase):
             . . . . . . . . . . . . . . .
         """, 'xxxx.', '....m')
 
-    def test_004(self):
+    def test_004bis(self):
         self.assert_threats([14], """
             . . . . . . . . . . x x x x .
             . . . . . . . . . . . . . . .
@@ -352,7 +352,7 @@ class TestsTestCase(TestCase):
             . . . . . . . . . . . . . . .
         """, 'xxxx.', '....m')
 
-    def test_011(self):
+    def test_011bis(self):
         self.assert_threats([4 * 15 + 14], """
             . . . . . . . . . . . . . . x
             . . . . . . . . . . . . . . x
@@ -466,7 +466,7 @@ class TestsTestCase(TestCase):
             . . . . . . . . . . . . . . .
         """, 'xxxx.', '....m')
 
-    def test_016(self):
+    def test_016bis(self):
         self.assert_threats([5 * 15 + 5, 14 * 15 + 4], """
             . . . . . . . . . . . . . . .
             . x . . . . . . . . . . . . .

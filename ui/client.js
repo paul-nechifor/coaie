@@ -11,9 +11,6 @@ const code = {'-1': 'o', '0': '.', '1': 'x'};
 
 let playerColor = 1;
 
-board[1 * 15 + 1] = 1;
-board[2 * 15 + 2] = -1;
-
 function renderBoard() {
   $pieces.empty();
 

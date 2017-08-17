@@ -13,11 +13,6 @@ threat_t possible_threats[3][23] = {
             5,
         },
         {
-            {0, 1, 1, 1, 0},
-            {true, false, false, false, true},
-            5,
-        },
-        {
             {0, 1, 1, 1, 1, -1},
             {true, false, false, false, false, false},
             6,
@@ -25,16 +20,6 @@ threat_t possible_threats[3][23] = {
         {
             {-1, 1, 1, 1, 1, 0},
             {false, false, false, false, false, true},
-            6,
-        },
-        {
-            {0, 1, 1, 0, 1, 0},
-            {true, false, false, true, false, true},
-            6,
-        },
-        {
-            {0, 1, 0, 1, 1, 0},
-            {true, false, true, false, false, true},
             6,
         },
         {
@@ -66,6 +51,21 @@ threat_t possible_threats[3][23] = {
             {1, 1, 1, 1, 0},
             {false, false, false, false, true},
             5,
+        },
+        {
+            {0, 1, 1, 1, 0},
+            {true, false, false, false, true},
+            5,
+        },
+        {
+            {0, 1, 1, 0, 1, 0},
+            {true, false, false, true, false, true},
+            6,
+        },
+        {
+            {0, 1, 0, 1, 1, 0},
+            {true, false, true, false, false, true},
+            6,
         },
         {
             {0, -1, -1, -1, 0},
@@ -155,11 +155,6 @@ threat_t possible_threats[3][23] = {
             5,
         },
         {
-            {0, -1, -1, -1, 0},
-            {true, false, false, false, true},
-            5,
-        },
-        {
             {0, -1, -1, -1, -1, 1},
             {true, false, false, false, false, false},
             6,
@@ -167,16 +162,6 @@ threat_t possible_threats[3][23] = {
         {
             {1, -1, -1, -1, -1, 0},
             {false, false, false, false, false, true},
-            6,
-        },
-        {
-            {0, -1, -1, 0, -1, 0},
-            {true, false, false, true, false, true},
-            6,
-        },
-        {
-            {0, -1, 0, -1, -1, 0},
-            {true, false, true, false, false, true},
             6,
         },
         {
@@ -208,6 +193,21 @@ threat_t possible_threats[3][23] = {
             {-1, -1, -1, -1, 0},
             {false, false, false, false, true},
             5,
+        },
+        {
+            {0, -1, -1, -1, 0},
+            {true, false, false, false, true},
+            5,
+        },
+        {
+            {0, -1, -1, 0, -1, 0},
+            {true, false, false, true, false, true},
+            6,
+        },
+        {
+            {0, -1, 0, -1, -1, 0},
+            {true, false, true, false, false, true},
+            6,
         },
         {
             {0, 1, 1, 1, 0},

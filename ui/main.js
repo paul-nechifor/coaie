@@ -16,6 +16,8 @@ function createWindow() {
     slashes: true
   }));
 
+  mainWindow.toggleDevTools();
+
   mainWindow.on('closed', function () {
     mainWindow = null;
   });

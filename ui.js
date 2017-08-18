@@ -7,13 +7,13 @@ const BrowserWindow = electron.BrowserWindow;
 let mainWindow;
 
 function createWindow() {
-  mainWindow = new BrowserWindow({width: 650, height: 700});
+  mainWindow = new BrowserWindow({width: 650, height: 750});
   mainWindow.setMenu(null);
 
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'ui.html'),
     protocol: 'file:',
-    slashes: true
+    slashes: true,
   }));
 
   // mainWindow.toggleDevTools();

@@ -25,7 +25,6 @@ threats = [
     ('o.ooo', '.m...'),
     ('oo.oo', '..m..'),
     ('ooo.o', '...m.'),
-    ('o.o.o', '.m.m.'),
     ('oooo.', '....m'),
 
     ('..ooo.', '.m...m'),
@@ -73,8 +72,7 @@ threat_t possible_threats[3][%s] = {
     {
 %s
     },
-};
-''' % (
+};''' % (
     len(threats),
     len(threats),
     '\n'.join(w),

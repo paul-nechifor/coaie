@@ -11,6 +11,13 @@
         user-select: none;
         cursor: default;
       }
+      .winner {
+        color: #000;
+        font-family: sans-serif;
+        font-size: 20px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
     </style>
   </head>
   <body>
@@ -65,12 +72,18 @@
         </g>
       </g>
     </svg>
+    <p>
+      <button class='start-as-black'>Start as Black</button>
+      <button class='start-as-white'>Start as White</button>
+    </p>
+    <p class='winner'></p>
     <script>
 const $ = require('jquery');
 const _ = require('underscore');
 const path = require('path');
-const {exec} = require('child_process');
+const {execSync} = require('child_process');
 
+const exe = path.resolve(__dirname, 'coaie');
 const $svg = $('#svg');
 const $pieces = $('#pieces');
 const cellSize = parseInt(svg.getAttribute('width'), 10) / 15;
@@ -84,11 +97,28 @@ const labels = {
 
 let playerColor = 1;
 let lastPiece = 1;
+let gameEnd = false;
 
-function renderBoard() {
+function hasWon() {
+  const str = board.map(x => code[x]).join('');
+  const cmd = `${exe} won ${str}`;
+  const who = execSync(cmd, {encoding: 'utf8'}).trim();
+  const won = who !== '.';
+  if (won) {
+    gameEnd = true;
+    const names = {x: 'Black', o: 'White'};
+    $('.winner').text(`${names[who]} has won.`);
+  }
+  return won;
+}
+
+function emptyDisplay() {
   $pieces.empty();
   _.invoke(labels, 'empty');
+}
 
+function renderBoard() {
+  emptyDisplay();
   for (let i = 0; i < 15; i++) {
     for (let j = 0; j < 15; j++) {
       const player = board[i * 15 + j];
@@ -115,7 +145,22 @@ function addPiece(i, j, player) {
   labels[player].append(text);
 }
 
+function resetGame() {
+  _.range(15 * 15).forEach(i => {
+    board[i] = 0;
+    numbers[i] = 0;
+  });
+  playerColor = 1;
+  lastPiece = 1;
+  gameEnd = false;
+  emptyDisplay();
+}
+
 $svg.click(ev => {
+  if (gameEnd) {
+    return;
+  }
+
   const i = Math.floor(ev.offsetY / cellSize);
   const j = Math.floor(ev.offsetX / cellSize);
   const move = i * 15 + j;
@@ -125,18 +170,32 @@ $svg.click(ev => {
   board[move] = playerColor;
   numbers[move] = lastPiece++;
   renderBoard();
+  if (hasWon()) {
+    return;
+  }
 
   const aiPlayer = -playerColor;
   const str = board.map(x => code[x]).join('');
-  const exe = path.resolve(__dirname, 'coaie');
   const cmd = `${exe} play ${str} ${code[playerColor]}`;
-  exec(cmd, {encoding: 'utf8'}, (err, out) => {
-    const list = out.trim().split(' ');
-    const move = parseInt(list[Math.floor(Math.random() * list.length)], 10);
-    board[move] = -playerColor;
-    numbers[move] = lastPiece++;
-    renderBoard();
-  });
+  const list = execSync(cmd, {encoding: 'utf8'}).trim().split(' ');
+  const newMove = parseInt(list[Math.floor(Math.random() * list.length)], 10);
+  board[newMove] = -playerColor;
+  numbers[newMove] = lastPiece++;
+  renderBoard();
+
+  hasWon();
+});
+
+$('.start-as-black').click(() => {
+  resetGame();
+});
+
+$('.start-as-white').click(() => {
+  resetGame();
+  playerColor = -1;
+  board[7 * 15 + 7] = 1;
+  numbers[7 * 15 + 7] = lastPiece++;
+  renderBoard();
 });
 
 renderBoard();

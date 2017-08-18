@@ -146,6 +146,7 @@ function addPiece(i, j, player) {
 }
 
 function resetGame() {
+  console.log('Restart game -------------------------------------------------');
   _.range(15 * 15).forEach(i => {
     board[i] = 0;
     numbers[i] = 0;
@@ -170,19 +171,20 @@ $svg.click(ev => {
   board[move] = playerColor;
   numbers[move] = lastPiece++;
   renderBoard();
+  printBoard();
   if (hasWon()) {
     return;
   }
 
   const aiPlayer = -playerColor;
   const str = board.map(x => code[x]).join('');
-  const cmd = `${exe} play ${str} ${code[playerColor]}`;
+  const cmd = `${exe} play ${str} ${code[-playerColor]}`;
   const list = execSync(cmd, {encoding: 'utf8'}).trim().split(' ');
   const newMove = parseInt(list[Math.floor(Math.random() * list.length)], 10);
   board[newMove] = -playerColor;
   numbers[newMove] = lastPiece++;
   renderBoard();
-
+  printBoard();
   hasWon();
 });
 
@@ -197,6 +199,13 @@ $('.start-as-white').click(() => {
   numbers[7 * 15 + 7] = lastPiece++;
   renderBoard();
 });
+
+function printBoard() {
+  const str = board.map((x, i) => {
+    return code[x] + (i % 15 === 14 ? '\n' : ' ');
+  }).join('');
+  console.log(`Move ${lastPiece - 1}:\n\n${str}\n`);
+}
 
 renderBoard();
     </script>

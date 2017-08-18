@@ -137,6 +137,30 @@ void cmdThreats(
     cout << endl;
 }
 
+void cmdWon(player_t (&board)[cells]) {
+    player_t xPattern[5] = {1, 1, 1, 1, 1};
+    player_t oPattern[5] = {-1, -1, -1, -1, -1};
+    bool mask[5] = {true, false, false, false, false};
+
+    vector<move_t> threats;
+
+    getThreats(threats, board, xPattern, mask, 5);
+    if (threats.size() > 0) {
+        cout << "x" << endl;
+        return;
+    }
+
+    threats.clear();
+
+    getThreats(threats, board, oPattern, mask, 5);
+    if (threats.size() > 0) {
+        cout << "o" << endl;
+        return;
+    }
+
+    cout << "." << endl;
+}
+
 int main(int argc, char **argv) {
     vector<string> args(argv + 1, argv + argc);
     string cmd = args[0];
@@ -146,7 +170,7 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    if (cmd == "play" || cmd == "threats") {
+    if (cmd == "play" || cmd == "threats" || "won") {
         player_t board[cells];
 
         // Transform board string to -1, 0, and 1.
@@ -170,6 +194,8 @@ int main(int argc, char **argv) {
             cmdThreats(board, pattern, mask, args[2].length());
             delete pattern;
             delete mask;
+        } else if (cmd == "won") {
+            cmdWon(board);
         }
 
         return 0;

@@ -773,11 +773,52 @@ class TestsTestCase(TestCase):
         """)).strip()
         self.assertEqual('.', won)
 
+    def test_score_001(self):
+        self.assert_score(100211, """
+            . x x x . . . . . . . . . . .
+            . . . . . . . . . . . . . . .
+            . . . . . . . . . . . . . . .
+            . . . . . . . . . . . . . . .
+            . . . . . . . . . . . . . . .
+            . . . . . . . . . . . . . . .
+            . . . . . . . . . . . . . . .
+            . . . . . . . . . . . . . . .
+            . . . . . . . . . . . . . . .
+            . . . . . . . . . . . . . . .
+            . . . . . . . . . . . . . . .
+            . . . . . . . . . . . . . . .
+            . . . . . . . . . . . . . . .
+            . . . . . . . . . . . . . . .
+            . . . . . . . . . . . . . . .
+        """, 'x')
+
+    def test_score_001(self):
+        self.assert_score(-5172, """
+            . . . . . . . . . . . . . . .
+            . . . . . . . . . . . . . . .
+            . . . . . . . . . . . . . . .
+            . . . . . x . . . . . . . . .
+            . . . . . o x . . . . . . . .
+            . . . . . . x o . . . . . . .
+            . . . . . . o x o . . . . . .
+            . . o . . x o x x x o . . . .
+            . . . x . x o o o o x x . . .
+            . . . . o . x o x o . . . . .
+            . . . . x o o o x x . . . . .
+            . . . . . x o o . . . . . . .
+            . . . . . . . x x . . . . . .
+            . . . . . . . . . . . . . . .
+            . . . . . . . . . . . . . . .
+        """, 'o')
+
     def assert_move(self, expected, board, player='x'):
         self.assert_command(expected, 'play', compact(board), player)
 
     def assert_threats(self, expected, board, pattern, mask):
         self.assert_command(expected, 'threats', compact(board), pattern, mask)
+
+    def assert_score(self, expected, board, player):
+        self.assert_command(expected, 'score', compact(board), player)
 
     def assert_command(self, expected, *args):
         try:

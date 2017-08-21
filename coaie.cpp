@@ -2,6 +2,20 @@
 #include <iostream>
 #include <vector>
 
+/*
+ * Pseudocode:
+ *
+ * - Look at all the cells involved in threats and posibilities. Sort them by
+ *   a heuristicall score and keep the top 20 (or another resonable number).
+ *
+ * - Alternative: Go through each cell, place the piece there, and compute a
+ *   heuristical score for the move by looking at the number of threats, and
+ *   opportunities. Keep only the top 20 moves (or another resonable number).
+ *
+ * - For each move, go a level deeper, and search again for the best moves.
+ *   After reaching the maximum depth level return the score for the best move.
+ */
+
 using std::all_of;
 using std::begin;
 using std::cerr;
@@ -18,6 +32,7 @@ struct threat_t {
     player_t pattern[10];
     bool mask[10];
     int pattern_len;
+    int score;
 };
 
 const move_t size = 15;
@@ -109,6 +124,33 @@ void getMoves(vector<move_t>& moves, player_t (&board)[cells], player_t player) 
     moves.push_back(255);
 }
 
+int getScore(player_t (&board)[cells], player_t player) {
+    int ret = 0;
+
+    vector<move_t> threats;
+
+    for (int i = 0; i < n_threats; i++) {
+        threat_t th = possible_threats[player + 1][i];
+        threats.clear();
+
+        getThreats(threats, board, th.pattern, th.mask, th.pattern_len);
+
+        if (threats.size()) {
+            // Use abs.
+            if (th.score >= 500000) {
+                return 500000;
+            }
+            if (th.score <= -500000) {
+                return -500000;
+            }
+        }
+
+        ret += threats.size() * th.score;
+    }
+
+    return ret;
+}
+
 void cmdPlay(player_t (&board)[cells], player_t player) {
     vector<move_t> moves;
 
@@ -118,6 +160,10 @@ void cmdPlay(player_t (&board)[cells], player_t player) {
         cout << (int) x << ' ';
     }
     cout << endl;
+}
+
+void cmdScore(player_t (&board)[cells], player_t player) {
+    cout << getScore(board, player) << endl;
 }
 
 void cmdThreats(
@@ -170,7 +216,7 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    if (cmd == "play" || cmd == "threats" || "won") {
+    if (cmd == "play" || cmd == "threats" || "won" || "score") {
         player_t board[cells];
 
         // Transform board string to -1, 0, and 1.
@@ -178,9 +224,13 @@ int main(int argc, char **argv) {
             return x == 'x' ? black : x == 'o' ? white : blank;
         });
 
-        if (cmd == "play") {
+        if (cmd == "play" || cmd == "score") {
             player_t player = args[2] == "x" ? black : white;
-            cmdPlay(board, player);
+            if (cmd == "play") {
+                cmdPlay(board, player);
+            } else {
+                cmdScore(board, player);
+            }
         } else if (cmd == "threats") {
             player_t *pattern = new player_t[args[2].length()];
             bool *mask = new bool[args[2].length()];

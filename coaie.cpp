@@ -16,6 +16,7 @@
  *   After reaching the maximum depth level return the score for the best move.
  */
 
+using std::abs;
 using std::all_of;
 using std::begin;
 using std::cerr;
@@ -135,14 +136,8 @@ int getScore(player_t (&board)[cells], player_t player) {
 
         getThreats(threats, board, th.pattern, th.mask, th.pattern_len);
 
-        if (threats.size()) {
-            // Use abs.
-            if (th.score >= 500000) {
-                return 500000;
-            }
-            if (th.score <= -500000) {
-                return -500000;
-            }
+        if (threats.size() && abs(th.score) >= 500000) {
+            return th.score;
         }
 
         ret += threats.size() * th.score;

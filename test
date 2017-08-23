@@ -793,7 +793,7 @@ class TestsTestCase(TestCase):
         """, 'x')
 
     def test_score_001(self):
-        self.assert_score(-5172, """
+        self.assert_score([5172], """
             . . . . . . . . . . . . . . .
             . . . . . . . . . . . . . . .
             . . . . . . . . . . . . . . .

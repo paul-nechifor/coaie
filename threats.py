@@ -20,9 +20,6 @@ threats = [
     (500000, 'xxxx.', '....m'),
     (500000, '.xxxx', 'm....'),
 
-    (-500000, '.oooox', 'm.....'),
-    (-500000, 'xoooo.', '.....m'),
-
     (-500000, '.oooo', 'm....'),
     (-500000, 'o.ooo', '.m...'),
     (-500000, 'oo.oo', '..m..'),
@@ -38,6 +35,11 @@ threats = [
     (50000, '.xxx..', 'm...m.'),
     (50000, '.xx.x.', 'm..m.m'),
     (50000, '.x.xx.', 'm.m..m'),
+
+    (-50000, '..ooo.', '.m...m'),
+    (-50000, '.ooo..', 'm...m.'),
+    (-50000, '.oo.o.', 'm..m.m'),
+    (-50000, '.o.oo.', 'm.m..m'),
 
     (100, '.xx.', 'm..m'),
     (100, 'x.x.', '.m.m'),
@@ -66,7 +68,7 @@ m = {'.': 0, 'x': -1, 'o': 1}
 
 for score, pattern, mask in threats:
     ns = [m[x] for x in pattern]
-    w.append(trans(ns, mask, score))
+    w.append(trans(ns, mask, -score))
     ns = [-x for x in ns]
     b.append(trans(ns, mask, score))
 

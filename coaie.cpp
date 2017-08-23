@@ -161,6 +161,22 @@ void cmdScore(player_t (&board)[cells], player_t player) {
     cout << getScore(board, player) << endl;
 }
 
+void cmdScores(player_t (&board)[cells], player_t player) {
+    vector<int> scores;
+
+    for (int i = 0; i < cells; i++) {
+        if (board[i]) {
+            cout << "0 ";
+        } else {
+            board[i] = player;
+            cout << getScore(board, player) << ' ';
+            board[i] = 0;
+        }
+    }
+
+    cout << endl;
+}
+
 void cmdThreats(
     player_t (&board)[cells],
     player_t *pattern,
@@ -211,7 +227,10 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    if (cmd == "play" || cmd == "threats" || "won" || "score") {
+    if (
+        cmd == "play" || cmd == "threats" || cmd == "won" || cmd == "score" ||
+        cmd == "scores"
+    ) {
         player_t board[cells];
 
         // Transform board string to -1, 0, and 1.
@@ -219,12 +238,14 @@ int main(int argc, char **argv) {
             return x == 'x' ? black : x == 'o' ? white : blank;
         });
 
-        if (cmd == "play" || cmd == "score") {
+        if (cmd == "play" || cmd == "score" || cmd == "scores") {
             player_t player = args[2] == "x" ? black : white;
             if (cmd == "play") {
                 cmdPlay(board, player);
-            } else {
+            } else if (cmd == "score") {
                 cmdScore(board, player);
+            } else if (cmd == "scores") {
+                cmdScores(board, player);
             }
         } else if (cmd == "threats") {
             player_t *pattern = new player_t[args[2].length()];

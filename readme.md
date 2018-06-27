@@ -1,3 +1,7 @@
+# This repository has been moved to [gitlab.com/paul-nechifor/coaie](http://gitlab.com/paul-nechifor/coaie).
+
+Old readme:
+
 # Coaie
 
 A C++ Gomoku AI.
